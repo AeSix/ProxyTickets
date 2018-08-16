@@ -58,7 +58,7 @@ public class Comment {
         handler.getMain().getProxy().getScheduler().runAsync(handler.getMain(), new Runnable() {
             public void run() {
                 try {
-                    PreparedStatement pst = handler.getMain().getSQLConnection().prepareStatement("UPDATE " + handler.getMain().getTablePrefix() + "comments SET isread = ? WHERE id = ?");
+                    PreparedStatement pst = handler.getMain().getSQLConnection().prepareStatement("UPDATE comments SET isread = ? WHERE id = ?");
                     pst.setBoolean(1, read);
                     pst.setInt(2, id);
                     pst.executeUpdate();
