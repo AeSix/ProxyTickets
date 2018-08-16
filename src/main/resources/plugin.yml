@@ -1,4 +1,5 @@
 name: ProxyTickets
 main: de.sabbertran.proxytickets.ProxyTickets
-version: 1.0.4
+version: 1.0.5
 author: Sabbertran
+maintainer: AeSix
