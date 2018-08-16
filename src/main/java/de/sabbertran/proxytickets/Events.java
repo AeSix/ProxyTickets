@@ -29,18 +29,18 @@ public class Events implements Listener {
     public void onPostLogin(PostLoginEvent ev) {
         ProxiedPlayer p = ev.getPlayer();
         try {
-            PreparedStatement pst = main.getSQLConnection().prepareStatement("SELECT uuid, name FROM " + main.getTablePrefix() + "players WHERE uuid = ?");
+            PreparedStatement pst = main.getSQLConnection().prepareStatement("SELECT uuid, name FROM players WHERE uuid = ?");
             pst.setString(1, p.getUniqueId().toString());
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 if (!rs.getString("name").equals(p.getName())) {
-                    PreparedStatement pst2 = main.getSQLConnection().prepareStatement("UPDATE " + main.getTablePrefix() + "players SET name = ? WHERE uuid = ?");
+                    PreparedStatement pst2 = main.getSQLConnection().prepareStatement("UPDATE players SET name = ? WHERE uuid = ?");
                     pst2.setString(1, p.getName());
                     pst2.setString(2, p.getUniqueId().toString());
                     pst2.executeUpdate();
                 }
             } else {
-                PreparedStatement pst2 = main.getSQLConnection().prepareStatement("INSERT INTO " + main.getTablePrefix() + "players (uuid, name) VALUES (?, ?)");
+                PreparedStatement pst2 = main.getSQLConnection().prepareStatement("INSERT INTO players (uuid, name) VALUES (?, ?)");
                 pst2.setString(1, p.getUniqueId().toString());
                 pst2.setString(2, p.getName());
                 pst2.executeUpdate();
