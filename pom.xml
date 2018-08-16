@@ -6,7 +6,7 @@
 
     <groupId>de.sabbertran.proxytickets</groupId>
     <artifactId>ProxyTickets</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
 
     <repositories>
         <!-- BungeeCord repository -->
@@ -20,7 +20,7 @@
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
-            <version>1.12-SNAPSHOT</version>
+            <version>1.13-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>
