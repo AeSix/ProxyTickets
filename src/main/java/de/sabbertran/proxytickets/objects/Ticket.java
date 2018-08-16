@@ -27,7 +27,7 @@ public class Ticket {
         handler.getMain().getProxy().getScheduler().runAsync(handler.getMain(), new Runnable() {
             public void run() {
                 try {
-                    PreparedStatement pst = handler.getMain().getSQLConnection().prepareStatement("INSERT INTO " + handler.getMain().getTablePrefix() + "tickets (player, status, created, server, world, x, y, z, pitch, yaw, text, claimedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement pst = handler.getMain().getSQLConnection().prepareStatement("INSERT INTO tickets (player, status, created, server, world, x, y, z, pitch, yaw, text, claimedBy) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     pst.setString(1, player.getUUID());
                     pst.setInt(2, status);
                     pst.setTimestamp(3, new Timestamp(created.getTime()));
