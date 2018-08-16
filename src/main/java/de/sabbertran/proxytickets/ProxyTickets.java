@@ -19,7 +19,6 @@ public class ProxyTickets extends Plugin {
     private Configuration config;
     private List<String> sql;
     private Connection sql_connection;
-    private String tablePrefix;
     private MessageHandler messageHandler;
     private PermissionHandler permissionHandler;
     private PositionHandler positionHandler;
@@ -90,9 +89,9 @@ public class ProxyTickets extends Plugin {
         if (sql != null && sql.size() == 5 && !sql.get(4).equals("Password")) {
             try {
                 Statement st = getSQLConnection().createStatement();
-                st.execute("CREATE TABLE IF NOT EXISTS " + tablePrefix + "players (uuid CHAR(36) NOT NULL, name VARCHAR(16) NOT NULL, blockedUntil TIMESTAMP NULL, UNIQUE (uuid))");
-                st.execute("CREATE TABLE IF NOT EXISTS " + tablePrefix + "tickets (id INT NOT NULL AUTO_INCREMENT, player CHAR(36) NOT NULL, status INT NOT NULL DEFAULT 0, created TIMESTAMP NOT NULL, server VARCHAR(255) NOT NULL, world VARCHAR(255) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, z DOUBLE NOT NULL, pitch DOUBLE NOT NULL, yaw DOUBLE NOT NULL, text TEXT NOT NULL, claimedBy VARCHAR(255) NULL, answer TEXT NULL, PRIMARY KEY (id), FOREIGN KEY (player) REFERENCES " + tablePrefix + "players (uuid), FOREIGN KEY (claimedBy) REFERENCES " + tablePrefix + "players (uuid))");
-                st.execute("CREATE TABLE IF NOT EXISTS " + tablePrefix + "comments (id INT NOT NULL AUTO_INCREMENT, ticket INT NOT NULL, player CHAR(36) NOT NULL, date TIMESTAMP NOT NULL, text TEXT NOT NULL, server VARCHAR(255) NOT NULL, world VARCHAR(255) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, z DOUBLE NOT NULL, pitch DOUBLE NOT NULL, yaw DOUBLE NOT NULL, isread BOOLEAN NOT NULL, PRIMARY KEY (id), FOREIGN KEY (ticket) REFERENCES " + tablePrefix + "tickets (id), FOREIGN KEY (player) REFERENCES " + tablePrefix + "players (uuid))");
+                st.execute("CREATE TABLE IF NOT EXISTS players (uuid CHAR(36) NOT NULL, name VARCHAR(16) NOT NULL, blockedUntil TIMESTAMP NULL, UNIQUE (uuid))");
+                st.execute("CREATE TABLE IF NOT EXISTS tickets (id INT NOT NULL AUTO_INCREMENT, player CHAR(36) NOT NULL, status INT NOT NULL DEFAULT 0, created TIMESTAMP NOT NULL, server VARCHAR(255) NOT NULL, world VARCHAR(255) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, z DOUBLE NOT NULL, pitch DOUBLE NOT NULL, yaw DOUBLE NOT NULL, text TEXT NOT NULL, claimedBy VARCHAR(255) NULL, answer TEXT NULL, PRIMARY KEY (id), FOREIGN KEY (player) REFERENCES " + tablePrefix + "players (uuid), FOREIGN KEY (claimedBy) REFERENCES " + tablePrefix + "players (uuid))");
+                st.execute("CREATE TABLE IF NOT EXISTS comments (id INT NOT NULL AUTO_INCREMENT, ticket INT NOT NULL, player CHAR(36) NOT NULL, date TIMESTAMP NOT NULL, text TEXT NOT NULL, server VARCHAR(255) NOT NULL, world VARCHAR(255) NOT NULL, x DOUBLE NOT NULL, y DOUBLE NOT NULL, z DOUBLE NOT NULL, pitch DOUBLE NOT NULL, yaw DOUBLE NOT NULL, isread BOOLEAN NOT NULL, PRIMARY KEY (id), FOREIGN KEY (ticket) REFERENCES " + tablePrefix + "tickets (id), FOREIGN KEY (player) REFERENCES " + tablePrefix + "players (uuid))");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -115,10 +114,6 @@ public class ProxyTickets extends Plugin {
         }
 
         return sql_connection;
-    }
-
-    public String getTablePrefix() {
-        return tablePrefix;
     }
 
     public PermissionHandler getPermissionHandler() {
