@@ -1,7 +1,0 @@
-image: maven:3.5.4-jdk-10
-
-build:
-  script: "mvn install -B"
-  artifacts:
-    paths:
-    - target/*.jar
