@@ -114,9 +114,9 @@ public class TicketHandler {
             public void run() {
                 try {
                     String sql = "SELECT t.id, t.status, t.created, t.server, t.world, t.x, t.y, t.z, t.pitch, t.yaw, t.text, t.answer, p1.uuid AS authorUUID, p1.name AS authorName, p2.uuid AS claimedByUUID, p2.name AS claimedByName " +
-                            "FROM " + main.getTablePrefix() + "tickets t " +
-                            "INNER JOIN " + main.getTablePrefix() + "players p1 ON t.player = p1.uuid " +
-                            "LEFT JOIN " + main.getTablePrefix() + "players p2 ON t.claimedBy = p2.uuid " +
+                            "FROM tickets t " +
+                            "INNER JOIN players p1 ON t.player = p1.uuid " +
+                            "LEFT JOIN players p2 ON t.claimedBy = p2.uuid " +
                             "WHERE t.status = 0 OR t.status = 1";
                     PreparedStatement pst = main.getSQLConnection().prepareStatement(sql);
                     ResultSet rs = pst.executeQuery();
@@ -148,9 +148,9 @@ public class TicketHandler {
 
         try {
             String sql = "SELECT t.id, t.status, t.created, t.server, t.world, t.x, t.y, t.z, t.pitch, t.yaw, t.text, t.answer, p1.uuid AS authorUUID, p1.name AS authorName, p2.uuid AS claimedByUUID, p2.name AS claimedByName\n" +
-                    "FROM " + main.getTablePrefix() + "tickets t\n" +
-                    "INNER JOIN " + main.getTablePrefix() + "players p1 ON t.player = p1.uuid\n" +
-                    "LEFT JOIN " + main.getTablePrefix() + "players p2 ON t.claimedBy = p2.uuid\n" +
+                    "FROM tickets t\n" +
+                    "INNER JOIN players p1 ON t.player = p1.uuid\n" +
+                    "LEFT JOIN players p2 ON t.claimedBy = p2.uuid\n" +
                     "WHERE t.id = ?";
             PreparedStatement pst = main.getSQLConnection().prepareStatement(sql);
             pst.setInt(1, id);
@@ -181,7 +181,7 @@ public class TicketHandler {
         main.getProxy().getScheduler().runAsync(main, new Runnable() {
             public void run() {
                 try {
-                    PreparedStatement pst = main.getSQLConnection().prepareStatement("UPDATE " + main.getTablePrefix() + "tickets SET status = ?, claimedBy = ? WHERE id = ?");
+                    PreparedStatement pst = main.getSQLConnection().prepareStatement("UPDATE tickets SET status = ?, claimedBy = ? WHERE id = ?");
                     pst.setInt(1, 1);
                     pst.setString(2, p.getUUID());
                     pst.setInt(3, t.getId());
@@ -199,7 +199,7 @@ public class TicketHandler {
         main.getProxy().getScheduler().runAsync(main, new Runnable() {
             public void run() {
                 try {
-                    PreparedStatement pst = main.getSQLConnection().prepareStatement("UPDATE " + main.getTablePrefix() + "tickets SET status = ?, claimedBy = ? WHERE id = ?");
+                    PreparedStatement pst = main.getSQLConnection().prepareStatement("UPDATE tickets SET status = ?, claimedBy = ? WHERE id = ?");
                     pst.setInt(1, 0);
                     pst.setString(2, null);
                     pst.setInt(3, t.getId());
@@ -219,7 +219,7 @@ public class TicketHandler {
         main.getProxy().getScheduler().runAsync(main, new Runnable() {
             public void run() {
                 try {
-                    PreparedStatement pst = main.getSQLConnection().prepareStatement("UPDATE " + main.getTablePrefix() + "tickets SET status = ?, claimedBy = ?, answer = ? WHERE id = ?");
+                    PreparedStatement pst = main.getSQLConnection().prepareStatement("UPDATE tickets SET status = ?, claimedBy = ?, answer = ? WHERE id = ?");
                     pst.setInt(1, 2);
                     pst.setString(2, p.getUUID());
                     pst.setString(3, answer);
@@ -260,7 +260,7 @@ public class TicketHandler {
         main.getProxy().getScheduler().runAsync(main, new Runnable() {
             public void run() {
                 try {
-                    PreparedStatement pst = main.getSQLConnection().prepareStatement("INSERT INTO " + main.getTablePrefix() + "comments (ticket, player, date, text, server, world, x, y, z, pitch, yaw, isread) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    PreparedStatement pst = main.getSQLConnection().prepareStatement("INSERT INTO comments (ticket, player, date, text, server, world, x, y, z, pitch, yaw, isread) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
                     pst.setInt(1, t.getId());
                     pst.setString(2, p.getUUID());
                     pst.setTimestamp(3, new Timestamp(c.getDate().getTime()));
@@ -314,9 +314,9 @@ public class TicketHandler {
                 main.getProxy().getScheduler().runAsync(main, new Runnable() {
                     public void run() {
                         try {
-                            PreparedStatement pst = main.getSQLConnection().prepareStatement("TRUNCATE TABLE " + main.getTablePrefix() + "comments");
+                            PreparedStatement pst = main.getSQLConnection().prepareStatement("TRUNCATE TABLE comments");
                             pst.executeUpdate();
-                            pst = main.getSQLConnection().prepareStatement("TRUNCATE TABLE " + main.getTablePrefix() + "tickets");
+                            pst = main.getSQLConnection().prepareStatement("TRUNCATE TABLE tickets");
                             pst.executeUpdate();
                         } catch (SQLException e) {
                             e.printStackTrace();
@@ -328,9 +328,9 @@ public class TicketHandler {
                 main.getProxy().getScheduler().runAsync(main, new Runnable() {
                     public void run() {
                         try {
-                            PreparedStatement pst = main.getSQLConnection().prepareStatement("DELETE FROM " + main.getTablePrefix() + "comments WHERE ticket IN (SELECT id FROM " + main.getTablePrefix() + "tickets WHERE status = 2)");
+                            PreparedStatement pst = main.getSQLConnection().prepareStatement("DELETE FROM comments WHERE ticket IN (SELECT id FROM tickets WHERE status = 2)");
                             pst.executeUpdate();
-                            pst = main.getSQLConnection().prepareStatement("DELETE FROM " + main.getTablePrefix() + "tickets WHERE status = 2");
+                            pst = main.getSQLConnection().prepareStatement("DELETE FROM tickets WHERE status = 2");
                             pst.executeUpdate();
                         } catch (SQLException e) {
                             e.printStackTrace();
