@@ -65,7 +65,7 @@ public class Ticket {
         comments = new LinkedList<Comment>();
 
         try {
-            PreparedStatement pst = handler.getMain().getSQLConnection().prepareStatement("SELECT p.uuid, p.name, c.date, c.text, c.server, c.world, c.id, c.x, c.y, c.z, c.pitch, c.yaw, c.isread FROM " + handler.getMain().getTablePrefix() + "comments c INNER JOIN " + handler.getMain().getTablePrefix() + "players p ON c.player = p.uuid WHERE c.ticket = ?");
+            PreparedStatement pst = handler.getMain().getSQLConnection().prepareStatement("SELECT p.uuid, p.name, c.date, c.text, c.server, c.world, c.id, c.x, c.y, c.z, c.pitch, c.yaw, c.isread FROM comments c INNER JOIN players p ON c.player = p.uuid WHERE c.ticket = ?");
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
