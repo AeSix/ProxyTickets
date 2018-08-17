@@ -5,7 +5,6 @@ ProxyTickets:
   - 'Database'
   - 'Username'
   - 'Password'
-  TablePrefix: ''
   Messages:
     TimeFormat: dd.MM.yyyy HH:mm:ss
   TicketList:
