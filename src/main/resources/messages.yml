@@ -3,7 +3,7 @@ command.noplayer: 'You have to be a player to use this command'
 command.invalidnumber: '%number% is not a valid number'
 
 ticket.created.success: 'Your ticket has been successfully created with ID #%id%%newMessage%A staff member will take care of it as soon as possible'
-ticket.created.teaminfo: '%author% created a new ticket with id #%id%%newMessage%%text%'
+ticket.created.teaminfo: '%author% created a new ticket on %server% with id #%id%%newMessage%%text%'
 
 ticket.list.noopen: 'There are no open tickets'
 ticket.list.wrongpage: 'There are only %pages% pages of tickets to look at'
@@ -14,7 +14,7 @@ ticket.list.entry.2: '#%id% - %author% - %created% - Closed by %claimedBy%%newMe
 ticket.list.footer: ''
 
 ticket.notexists: 'The ticket #%id% does not exist'
-ticket.0: '#%id% - %author% - %created% - Open%newMessage%%text%'
+ticket.0: '#%id% - %author% - %created% - Open on %server%: %newMessage%%text%'
 ticket.1: '#%id% - %author% - %created% - Claimed by %claimedBy%%newMessage%%text%'
 ticket.2: '#%id% - %author% - %created% - Closed by %claimedBy%%newMessage%%text%%newMessage%Answer (by %claimedBy%): %answer%'
 
