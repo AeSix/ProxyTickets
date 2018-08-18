@@ -15,20 +15,20 @@ I currently have ProxyTickets running on a Minecraft 1.13 compatible Bungeecord 
 I am testing with 1.12.2 client. 
 
 Cheatsheet:
-apt-get install maven
-apt-get install git
-mkdir git
-cd git
-git clone https://github.com/AeSix/ProxyTickets
-cd ProxyTickets
-mvn clean pacakge
-*** wait for it to build ***
-cd ../
-git clone https://github.com/AeSix/ProxyTicketsBukkit
-cd ProxyTicketsBukkit
-mvn clean package
-*** wait for it to build ***
-cd ../
+* apt-get install maven
+* apt-get install git
+* mkdir git
+* cd git
+* git clone https://github.com/AeSix/ProxyTickets
+* cd ProxyTickets
+* mvn clean pacakge
+* *** wait for it to build ***
+* cd ../
+* git clone https://github.com/AeSix/ProxyTicketsBukkit
+* cd ProxyTicketsBukkit
+*  mvn clean package
+* *** wait for it to build ***
+* cd ../
 
 The jar files will be in git/ProxyTickets/target and git/ProxyTicketsBukkit/target 
 
