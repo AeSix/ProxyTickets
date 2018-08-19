@@ -9,7 +9,7 @@ public class TicketCommand extends Command {
     private ProxyTickets main;
 
     public TicketCommand(ProxyTickets main) {
-        super("ticket","proxytickets.ticket","modreq","check");
+        super("ticket");
         this.main = main;
     }
 
