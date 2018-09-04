@@ -74,7 +74,7 @@ public class ProxyTickets extends Plugin {
         permissionHandler.readAvailablePermissionsFromFile();
 
         getProxy().getPluginManager().registerListener(this, new Events(this));
-        getProxy().registerChannel("ProxyTickets");
+        getProxy().registerChannel("minecats:proxytickets");
         getProxy().getPluginManager().registerListener(this, new PMessageListener(this));
 
         getLogger().info(getDescription().getName() + " " + getDescription().getVersion() + " by " + getDescription().getAuthor() + " enabled");
