@@ -248,7 +248,7 @@ public class TicketHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        t.getLocation().getServer().sendData("ProxyTickets", b.toByteArray());
+        t.getLocation().getServer().sendData(ProxyTickets.ChannelName, b.toByteArray());
         if (p.getServer().getInfo() != t.getLocation().getServer())
             p.connect(t.getLocation().getServer());
     }

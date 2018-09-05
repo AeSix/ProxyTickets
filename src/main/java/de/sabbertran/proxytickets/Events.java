@@ -69,6 +69,8 @@ public class Events implements Listener {
     public void onServerSwitch(ServerSwitchEvent ev) {
         final ProxiedPlayer p = ev.getPlayer();
 
+        ProxyTickets.log.info("onServerSwitch: " + p.getName() + " Server:" + ev.toString());
+
         main.getProxy().getScheduler().schedule(main, new Runnable() {
             public void run() {
                 main.getPermissionHandler().resetPermissions(p);

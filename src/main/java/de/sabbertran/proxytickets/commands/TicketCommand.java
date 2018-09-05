@@ -9,11 +9,12 @@ public class TicketCommand extends Command {
     private ProxyTickets main;
 
     public TicketCommand(ProxyTickets main) {
-        super("ticket","proxytickets.ticket","modreq","check");
+        super("ticket","","modreq","check");
         this.main = main;
     }
 
     public void execute(CommandSender sender, String[] args) {
+
         if (main.getPermissionHandler().hasPermission(sender, "proxytickets.ticket")) {
             if (sender instanceof ProxiedPlayer) {
                 final ProxiedPlayer p = (ProxiedPlayer) sender;

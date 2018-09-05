@@ -17,6 +17,7 @@ public class TicketsCommand extends Command {
     }
 
     public void execute(final CommandSender sender, String[] args) {
+
         if (args.length == 0) {
             if (main.getPermissionHandler().hasPermission(sender, "proxytickets.tickets.list"))
                 main.getTicketHandler().sendOpenTicketList(sender, 0, main.getTicketsPerPage());
@@ -56,7 +57,7 @@ public class TicketsCommand extends Command {
                 } else
                     main.getPermissionHandler().sendMissingPermissionInfo(sender);
             } else if (args[0].equalsIgnoreCase("claim")) {
-                //TODO nicht bei status 2
+                //TODO not at status 2
                 if (main.getPermissionHandler().hasPermission(sender, "proxytickets.tickets.claim")) {
                     if (sender instanceof ProxiedPlayer) {
                         final CachedPlayer p = main.getCachedPlayerHandler().getCachedPlayer(sender);
@@ -105,7 +106,7 @@ public class TicketsCommand extends Command {
                 } else
                     main.getPermissionHandler().sendMissingPermissionInfo(sender);
             } else if (args[0].equalsIgnoreCase("unclaim")) {
-                //TODO nur bei status 1
+                //TODO only at status 1
                 if (main.getPermissionHandler().hasPermission(sender, "proxytickets.tickets.unclaim")) {
                     if (sender instanceof ProxiedPlayer) {
                         final CachedPlayer p = main.getCachedPlayerHandler().getCachedPlayer(sender);
@@ -161,7 +162,7 @@ public class TicketsCommand extends Command {
                 } else
                     main.getPermissionHandler().sendMissingPermissionInfo(sender);
             } else if (args[0].equalsIgnoreCase("close")) {
-                //TODO nicht bei status 2
+                //TODO not at status 2
                 if (main.getPermissionHandler().hasPermission(sender, "proxytickets.tickets.close")) {
                     try {
                         final int id = Integer.parseInt(args[1]);

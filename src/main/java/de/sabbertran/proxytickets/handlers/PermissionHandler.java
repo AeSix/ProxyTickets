@@ -22,6 +22,7 @@ public class PermissionHandler {
     }
 
     public void updatePermissions(ProxiedPlayer p) {
+
         ByteArrayOutputStream b = new ByteArrayOutputStream();
         DataOutputStream out = new DataOutputStream(b);
         try {
@@ -32,7 +33,7 @@ public class PermissionHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        p.getServer().sendData("ProxyTickets", b.toByteArray());
+        p.getServer().sendData(ProxyTickets.ChannelName, b.toByteArray());
     }
 
     public void readAvailablePermissionsFromFile() {
@@ -68,7 +69,9 @@ public class PermissionHandler {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer p = (ProxiedPlayer) sender;
             if (permissions.containsKey(p.getName())) {
-                if (permissions.get(p.getName()).contains(permission.toLowerCase()) || (!ignoreSternchen && permissions.get(p.getName()).contains("*")) || (!ignoreSternchen && permissions.get(p.getName()).contains(permission.toLowerCase() + ".*")))
+                if (permissions.get(p.getName()).contains(permission.toLowerCase()) ||
+                        (!ignoreSternchen && permissions.get(p.getName()).contains("*")) ||
+                        (!ignoreSternchen && permissions.get(p.getName()).contains(permission.toLowerCase() + ".*")))
                     return true;
                 else if (!ignoreSternchen) {
                     String check = "";
@@ -83,10 +86,19 @@ public class PermissionHandler {
             }
         } else
             return true;
+
+        ProxyTickets.log.info("hasPermission failed to find user "+ sender.getName()+" perm, checking list for:  " + permission);
+        for(String perm : permissions.keySet()){
+            ProxyTickets.log.info("hasPermission: Key: "+ perm + " Perm: " + permissions.get(perm));
+        }
+
         return false;
     }
 
     public boolean hasPermission(String player, String permission) {
+
+        ProxyTickets.log.info("ProxyTickets - Player: " + player + " permissions: " + permission);
+
         if (permissions.containsKey(player)) {
             if (permissions.get(player).contains(permission.toLowerCase()) || permissions.get(player)
                     .contains("*"))

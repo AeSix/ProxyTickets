@@ -22,7 +22,8 @@ public class PMessageListener implements Listener {
 
     @EventHandler
     public void onPluginMessage(PluginMessageEvent ev) {
-        if (ev.getTag().equals("ProxyTickets")) {
+
+        if (ev.getTag().equals(ProxyTickets.ChannelName)) {
             ByteArrayInputStream stream = new ByteArrayInputStream(ev.getData());
             DataInputStream in = new DataInputStream(stream);
             try {

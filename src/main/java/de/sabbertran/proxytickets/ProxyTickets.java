@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.logging.Logger;
 
 public class ProxyTickets extends Plugin {
     private Configuration config;
@@ -28,7 +29,13 @@ public class ProxyTickets extends Plugin {
     private SimpleDateFormat dateFormat;
     private int ticketsPerPage;
 
+    static public Logger log;
+    static public String ChannelName = "minecats:proxytickets";
+
     public void onEnable() {
+
+        log = getLogger();
+
         if (!getDataFolder().exists()) {
             getDataFolder().mkdir();
         }
@@ -74,7 +81,7 @@ public class ProxyTickets extends Plugin {
         permissionHandler.readAvailablePermissionsFromFile();
 
         getProxy().getPluginManager().registerListener(this, new Events(this));
-        getProxy().registerChannel("minecats:proxytickets");
+        getProxy().registerChannel(ChannelName);
         getProxy().getPluginManager().registerListener(this, new PMessageListener(this));
 
         getLogger().info(getDescription().getName() + " " + getDescription().getVersion() + " by " + getDescription().getAuthor() + " enabled");
